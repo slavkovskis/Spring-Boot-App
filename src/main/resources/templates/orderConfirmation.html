@@ -1,0 +1,40 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Ordered Ticket - Confirmation</title>
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: auto;
+        }
+        table {
+            width:100%;
+        }
+        table, td, th {
+            border: 1px solid black;
+            padding: 3px 2px;
+        }
+    </style>
+</head>
+<body>
+<section>
+    <header>
+        <h1>Movie Order page - Order confirmation </h1>
+    </header>
+</section>
+<ul>
+    <li th:each="ticket : ${tickets}">
+        <label>
+            Movie: <th:block th:text="${ticket.getMovieTitle()}"></th:block>
+            , Client: <th:block th:text="${name}"></th:block>
+            , Number of tickets: <th:block th:text="${ticket.getNumberOfTickets()}"></th:block>
+            , Date of buying: <th:block th:text="${ticket.getDateCreated()}"></th:block>
+        </label>
+    </li>
+</ul>
+
+<form th:method="GET" th:action="@{/movies}">
+    <input type="submit" value="Back"/>
+</form>
+</body>
+</html>

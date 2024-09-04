@@ -1,0 +1,60 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>Movie Ticket Order page - Welcome and choose a Movie</title>
+  <style type="text/css">
+    body {
+      width: 800px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Welcome to our Movie Ticket Shop App</h1>
+</header>
+<main>
+  <h2>Choose movie:</h2>
+  <ul>
+    <li th:each="movie : ${movies}">
+      <input type="radio" th:value="${movie.getTitle()}">
+      <label>
+        Title: <th:block th:text="${movie.getTitle()}"></th:block>
+        , Summary: <th:block th:text="${movie.getSummary()}"></th:block>
+        , Rating: <th:block th:text="${movie.getRating()}"></th:block>
+        , Production: <th:block th:text="${movie.getProduction().getName()}"></th:block>
+
+        <form th:action="@{'/movies/delete/{id}' (id=${movie.getId()})}" th:method="POST">
+          <button type="submit">Delete</button>
+        </form>
+
+        <form th:action="@{'/movies/edit/{id}' (id=${movie.getId})}" th:method="GET">
+          <button type="submit">Edit</button>
+        </form>
+
+      </label>
+    </li>
+  </ul>
+
+  <h2>Filter movies:</h2>
+  <form th:method="POST" th:action="@{/movie}">
+    <input type="text" name="movieFilter">
+    <input type="number" name="minRating">
+    <br/>
+    <input type="submit" value="Submit"/>
+  </form>
+  <!-- Display radio buttons for each movie,
+          the value should be the movie title
+          and the displayed text should be Title: <movie_title>, Summary:<movie_summary>, Rating: <movie_rating> -->
+
+  <h2>Choose number of tickets:</h2>
+  <form th:method="POST" th:action="@{/ticketOrder/add}">
+    <input type="number" name="numTickets" min="1" max="10">
+    <input type="text" name="movieName">
+    <input type="datetime-local" id="dateCreated" name="dateCreated"/>
+    <br/>
+    <input type="submit" value="Submit"/>
+  </form>
+</main>
+</body>
+</html>

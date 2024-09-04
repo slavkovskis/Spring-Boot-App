@@ -1,0 +1,51 @@
+<div xmlns:th="http://www.thymeleaf.org">
+  <section class="jumbotron text-center">
+    <div class="container">
+    </div>
+  </section>
+
+  <div>
+    <h1>ADD MOVIE</h1>
+        <form th:action="@{/movies/add}" th:method="POST">
+          <input type="text" name="title">
+          <input type="text" name="summary">
+          <input type="number" name="rating">
+          <input type="number" name="id">
+
+          <!--          treba da dodadesh select za production so ID, treba da napravish getID od site productions so get da gi pratish tuka za da se prikazhat, -->
+<!--          i posle vo pravenje samo ID da se koristi-->
+
+          <select name="productionName">
+            <option th:each="production : ${productions}"
+                    th:value="${production.getName()}"
+                    th:text="${production.getName()}">
+            </option>
+          </select>
+          <button type="submit">Add New Movie</button>
+        </form>
+    </div>
+</br>
+  <h1>EDIT MOVIE</h1>
+  <div>
+    Title: <th:block th:text="${movie.getTitle()}"></th:block>
+    , Summary: <th:block th:text="${movie.getSummary()}"></th:block>
+    , Rating: <th:block th:text="${movie.getRating()}"></th:block>
+    , ID: <th:block th:text="${movie.getId()}"></th:block>
+    , Production: <th:block th:text="${movie.getProduction().getName()}"></th:block>
+  </div>
+  <form th:action="@{'/movies/edit/{movieID}' (movieID=${movie.getId})}" th:method="POST">
+  <div>
+    Title: <input type="text" name="title">
+    , Summary: <input type="text" name="summary">
+    , Rating: <input type="number" name="rating">
+    , ID: <input type="number" name="id">
+    <select name="productionName">
+      <option th:each="production : ${productions}"
+              th:value="${production.getName()}"
+              th:text="${production.getName()}">
+      </option>
+    </select>
+    <button type="submit">Edit Existing Movie</button>
+  </div>
+  </form>
+</div>
